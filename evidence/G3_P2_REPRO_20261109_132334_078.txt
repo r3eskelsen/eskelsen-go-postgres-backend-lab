@@ -1,0 +1,102 @@
+PROJECT=ESK-LAB-08
+TIMESTAMP=2026-11-09T13:23:34.0804840-05:00
+RECONSTRUCTION_DATABASE=lab08_repro_20261109_132334_078
+STAGE=CREATE_EMPTY_DATABASE
+EXIT_CODE=0
+APPLY=migrations\0001_inventory.up.sql
+SHA256=11191F5EA841B6EA034ABE24999D191FD1ECD0C714508ED1F5AAAD2749DC46D3
+BEGIN
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+COMMIT
+EXIT_CODE=0
+APPLY=fixtures\products.sql
+SHA256=B3B926A86237538E51B9907C84F4524063DAEB5FCE33CFB398322F2BE0789B8E
+BEGIN
+INSERT 0 3
+COMMIT
+EXIT_CODE=0
+STAGE=RECONSTRUCTED_DATABASE_RACE_TESTS
+?   	github.com/eskelsen-systems/eskelsen-go-postgres-backend-lab/cmd/api	[no test files]
+=== RUN   TestValidate
+=== RUN   TestValidate/valid
+=== RUN   TestValidate/max-key
+=== RUN   TestValidate/empty-key
+=== RUN   TestValidate/long-key
+=== RUN   TestValidate/space
+=== RUN   TestValidate/unicode
+=== RUN   TestValidate/zero-product
+=== RUN   TestValidate/negative-product
+=== RUN   TestValidate/zero-quantity
+=== RUN   TestValidate/negative-quantity
+--- PASS: TestValidate (0.00s)
+    --- PASS: TestValidate/valid (0.00s)
+    --- PASS: TestValidate/max-key (0.00s)
+    --- PASS: TestValidate/empty-key (0.00s)
+    --- PASS: TestValidate/long-key (0.00s)
+    --- PASS: TestValidate/space (0.00s)
+    --- PASS: TestValidate/unicode (0.00s)
+    --- PASS: TestValidate/zero-product (0.00s)
+    --- PASS: TestValidate/negative-product (0.00s)
+    --- PASS: TestValidate/zero-quantity (0.00s)
+    --- PASS: TestValidate/negative-quantity (0.00s)
+=== RUN   TestHTTPValidation
+=== RUN   TestHTTPValidation/health
+=== RUN   TestHTTPValidation/bad-product
+=== RUN   TestHTTPValidation/bad-reservation
+=== RUN   TestHTTPValidation/bad-cancel
+=== RUN   TestHTTPValidation/missing-key
+=== RUN   TestHTTPValidation/malformed
+=== RUN   TestHTTPValidation/unknown-field
+=== RUN   TestHTTPValidation/trailing-json
+=== RUN   TestHTTPValidation/zero-quantity
+=== RUN   TestHTTPValidation/oversized
+=== RUN   TestHTTPValidation/wrong-method
+--- PASS: TestHTTPValidation (0.00s)
+    --- PASS: TestHTTPValidation/health (0.00s)
+    --- PASS: TestHTTPValidation/bad-product (0.00s)
+    --- PASS: TestHTTPValidation/bad-reservation (0.00s)
+    --- PASS: TestHTTPValidation/bad-cancel (0.00s)
+    --- PASS: TestHTTPValidation/missing-key (0.00s)
+    --- PASS: TestHTTPValidation/malformed (0.00s)
+    --- PASS: TestHTTPValidation/unknown-field (0.00s)
+    --- PASS: TestHTTPValidation/trailing-json (0.00s)
+    --- PASS: TestHTTPValidation/zero-quantity (0.00s)
+    --- PASS: TestHTTPValidation/oversized (0.00s)
+    --- PASS: TestHTTPValidation/wrong-method (0.00s)
+=== RUN   TestIntegration
+=== RUN   TestIntegration/HTTPCreateReadCancelReplay
+=== RUN   TestIntegration/Overselling100Requests25Units
+    service_test.go:233: success=25 stock_conflicts=75 unexpected=0
+=== RUN   TestIntegration/ConcurrentIdempotencyAndCancellation
+    service_test.go:303: 20 identical creates -> 1 reservation; 20 cancellations -> 1 stock return
+=== RUN   TestIntegration/RollbackAndRetry
+=== RUN   TestIntegration/BlockedRowDeadlineAndRetry
+    service_test.go:360: blocked operation returned after 200.290223ms
+=== RUN   TestIntegration/NotFound
+=== RUN   TestIntegration/FinalSQLInvariants
+    service_test.go:398: inventory conservation violations=0; incomplete idempotency records=0
+--- PASS: TestIntegration (0.39s)
+    --- PASS: TestIntegration/HTTPCreateReadCancelReplay (0.03s)
+    --- PASS: TestIntegration/Overselling100Requests25Units (0.10s)
+    --- PASS: TestIntegration/ConcurrentIdempotencyAndCancellation (0.02s)
+    --- PASS: TestIntegration/RollbackAndRetry (0.01s)
+    --- PASS: TestIntegration/BlockedRowDeadlineAndRetry (0.21s)
+    --- PASS: TestIntegration/NotFound (0.00s)
+    --- PASS: TestIntegration/FinalSQLInvariants (0.00s)
+PASS
+ok  	github.com/eskelsen-systems/eskelsen-go-postgres-backend-lab/internal/inventory	1.408s
+RECONSTRUCTED_DATABASE_TESTS=PASS
+EXIT_CODE=0
+STAGE=INDEPENDENT_SQL_CHECK
+ id | sku | initial_quantity | available_quantity | active_reserved_quantity 
+----+-----+------------------+--------------------+--------------------------
+(0 rows)
+
+DO
+EXIT_CODE=0
+G3_P2_EMPTY_DATABASE_RECONSTRUCTION=PASS
+RECONSTRUCTION_SCOPE=NEW_DATABASE_EXISTING_IMAGES_AND_DEPENDENCY_CACHE
+PUBLICATION=PENDING

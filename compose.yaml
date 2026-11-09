@@ -1,0 +1,76 @@
+name: esk-lab08-package
+
+x-toolchain: &toolchain
+  image: golang@sha256:3b4a11519ad929d1e1d261a12cff056f0c85b735253d7d861346b9c6f8b36437
+  working_dir: /app
+  mem_limit: 1536m
+  cpus: 2
+  pids_limit: 256
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  environment:
+    GOTOOLCHAIN: local
+    GOMAXPROCS: "2"
+  volumes:
+    - .:/app:ro
+    - ../work/package-mod-cache:/go/pkg/mod
+    - ../work/package-build-cache:/root/.cache/go-build
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: lab08
+      POSTGRES_DB: lab08
+      POSTGRES_PASSWORD: ${LAB08_DB_PASSWORD:?Set a disposable lab password}
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    shm_size: 64m
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /var/lib/postgresql/data:rw,size=268435456
+    volumes:
+      - ./migrations/0001_inventory.up.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./fixtures/products.sql:/docker-entrypoint-initdb.d/02-fixtures.sql:ro
+    networks: [lab]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab08 -d lab08"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  deps:
+    <<: *toolchain
+    profiles: [tools]
+    networks: [default]
+    command: ["go", "mod", "download"]
+
+  test:
+    <<: *toolchain
+    profiles: [tools]
+    environment:
+      GOTOOLCHAIN: local
+      GOMAXPROCS: "2"
+      GOPROXY: "off"
+      POSTGRES_PASSWORD: ${LAB08_DB_PASSWORD:?Set a disposable lab password}
+    networks: [lab]
+    depends_on:
+      db:
+        condition: service_healthy
+    command:
+      - sh
+      - -ec
+      - |
+        export DATABASE_URL="postgres://lab08:$${POSTGRES_PASSWORD}@db:5432/lab08?sslmode=disable"
+        go mod verify
+        go build -mod=readonly -p 2 ./...
+        go test -mod=readonly -race -p 1 -count=1 -timeout 180s -v ./...
+        go vet -mod=readonly -p 2 ./...
+
+networks:
+  lab:
+    internal: true
+  default: {}

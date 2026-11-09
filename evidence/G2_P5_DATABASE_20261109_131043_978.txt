@@ -1,0 +1,52 @@
+PROJECT=ESK-LAB-08
+TIMESTAMP=2026-11-09T13:10:43.9802062-05:00
+LOCAL_ENDPOINT_CHECK=PASS
+POSTGRES_IMAGE_ID=sha256:71e27bf60b70bded003791b5573f8b808365613f341df20ffcf0c1ed7bc13ddf
+PRIVATE_CONFIGURATION=CREATED_NOT_PRINTED
+a2e072958d057dc419e01120cc4b455e8be87ac0dfc7fdb41ffd67e0604b257e
+EXIT_CODE=0
+81d70ef11c8f1bfe7320bfed92b51060c75a4ebcdfa4328af98313b629d42c8f
+EXIT_CODE=0
+DATABASE_READY=PASS
+SQL_FILE=0001_inventory.up.sql
+SQL_SHA256=11191F5EA841B6EA034ABE24999D191FD1ECD0C714508ED1F5AAAD2749DC46D3
+BEGIN
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+COMMIT
+EXIT_CODE=0
+SQL_FILE=products.sql
+SQL_SHA256=B3B926A86237538E51B9907C84F4524063DAEB5FCE33CFB398322F2BE0789B8E
+BEGIN
+INSERT 0 3
+COMMIT
+EXIT_CODE=0
+SQL_FILE=verify_invariants.sql
+SQL_SHA256=4EE2FCC298E342F5736FA3492AF489FCB618F3BD9EAFDE19D638605495AB85D2
+ id | sku | initial_quantity | available_quantity | active_reserved_quantity 
+----+-----+------------------+--------------------+--------------------------
+(0 rows)
+
+DO
+EXIT_CODE=0
+                                                       version                                                        
+----------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 16.13 (Debian 16.13-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+(1 row)
+
+ id |      sku      | initial_quantity | available_quantity 
+----+---------------+------------------+--------------------
+  1 | DEMO-NOTEBOOK |               25 |                 25
+  2 | DEMO-PENCIL   |              100 |                100
+  3 | DEMO-EMPTY    |                0 |                  0
+(3 rows)
+
+EXIT_CODE=0
+MemoryBytes=536870912 PortBindings={}
+EXIT_CODE=0
+G2_P5_DATABASE_SETUP=PASS
+INITIAL_SQL_INVARIANTS=PASS
+CONCURRENCY_TESTS=PENDING
+RACE_EXECUTION=PENDING

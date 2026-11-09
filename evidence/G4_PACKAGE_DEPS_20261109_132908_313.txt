@@ -1,0 +1,15 @@
+PROJECT=ESK-LAB-08
+TIMESTAMP=2026-11-09T13:29:08.3138971-05:00
+TEMPORARY_PASSWORD=GENERATED_NOT_PRINTED
+LOCAL_ENDPOINT_CHECK=PASS
+PACKAGE_CACHE_INITIAL_STATE=ABSENT
+ Network esk-lab08-package_default Creating 
+ Network esk-lab08-package_default Creating 
+ Network esk-lab08-package_default Created 
+ Network esk-lab08-package_default Created 
+ Container esk-lab08-package-deps-run-4683ac2ca7f6 Creating 
+ Container esk-lab08-package-deps-run-4683ac2ca7f6 Created 
+EXIT_CODE=0
+PACKAGE_DEPENDENCIES=PASS
+PACKAGE_DATABASE=NOT_STARTED
+PACKAGE_TESTS=PENDING
